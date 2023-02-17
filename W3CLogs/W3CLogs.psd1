@@ -18,10 +18,10 @@
     RootModule = 'W3CLogs.psm1'
 
     # Version number of this module.
-    ModuleVersion = '0.0.0'
+    ModuleVersion = '1.0.0'
 
     # ID used to uniquely identify this module
-    GUID = ''
+    GUID = '278b8955-4db6-4794-b880-787f3c017a77'
 
     # Author of this module
     Author = 'WebMD Health Services'
@@ -36,7 +36,7 @@
     Copyright = '(c) WebMD Health Services.'
 
     # Description of the functionality provided by this module
-    Description = ''
+    Description = 'PowerShell module for working with W3C log files.'
 
     # Minimum version of the Windows PowerShell engine required by this module
     PowerShellVersion = '5.1'
@@ -76,6 +76,7 @@
 
     # Functions to export from this module. Only list public function here.
     FunctionsToExport = @(
+        'Import-W3CLog'
     )
 
     # Cmdlets to export from this module. By default, you get a script module, so there are no cmdlets.

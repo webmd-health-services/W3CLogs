@@ -1,6 +1,7 @@
+
 # Overview
 
-The "W3CLogs" module...
+The "W3CLogs" module has a single function `Import-W3CLog`, which parses and imports W3C log files.
 
 # System Requirements
 
@@ -23,4 +24,16 @@ Save-Module -Name 'W3CLogs' -Path '.'
 Import-Module -Name '.\W3CLogs'
 ```
 
-# Commands
+# Usage
+
+Pass the path to a single log file to parse to the function's `Path` parameter:
+
+```powershell
+Import-W3CLog -Path 'log.log'
+```
+
+To parse multiple logs, pipe them in:
+
+```powershell
+Get-ChildItem -Recurse -Filter '*.log' | Import-W3CLog
+```
