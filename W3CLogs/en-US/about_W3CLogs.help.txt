@@ -1,0 +1,8 @@
+TOPIC
+    about_MODULE_NAME
+
+SHORT DESCRIPTION
+    W3CLogs is a PowerShell module for...
+
+LONG DESCRIPTION
+    The W3CLogs PowerShell module...
