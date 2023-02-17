@@ -117,8 +117,7 @@
             Prerelease = ''
 
             # ReleaseNotes of this module
-            ReleaseNotes = @'
-'@
+            ReleaseNotes = 'https://github.com/webmd-health-services/W3CLogs/blob/main/CHANGELOG.md'
         } # End of PSData hashtable
 
     } # End of PrivateData hashtable
