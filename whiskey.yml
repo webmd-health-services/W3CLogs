@@ -7,8 +7,8 @@ Build:
 - Version:
     Path: W3CLogs\W3CLogs.psd1
     Prerelease:
-    - "*/*": alpha$(WHISKEY_BUILD_NUMBER)
-    - develop: rc$(WHISKEY_BUILD_NUMBER)
+    - main: ""
+    - "*": rc1
 
 # Update the AppVeyor build/version number.
 - Exec:
@@ -34,7 +34,7 @@ Build:
     - NOTICE.txt
     - README.md
     - CHANGELOG.md
-    DestinationDirectory: Carbon
+    DestinationDirectory: W3CLogs
 
 - PowerShell:
     ExceptDuring: Clean
