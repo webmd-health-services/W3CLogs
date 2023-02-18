@@ -67,7 +67,7 @@ BeforeAll {
 Describe 'W3CLogs' {
     It 'should have about help topic' {
         GivenModuleImported
-        ThenHelpTopic 'about_MODULE_NAME' -Exists
+        ThenHelpTopic 'about_W3CLogs' -Exists
     }
 
     It 'should only use approved verbs' {

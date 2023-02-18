@@ -30,7 +30,7 @@ try
 {
     $modules = [ordered]@{
         'W3CLogs' = '..\W3CLogs';
-        'MODULE_NAMETestHelper' = 'MODULE_NAMETestHelper';
+        'W3CLogsTestHelper' = 'W3CLogsTestHelper';
     }
     foreach( $moduleName in $modules.Keys )
     {

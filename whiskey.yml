@@ -7,8 +7,8 @@ Build:
 - Version:
     Path: W3CLogs\W3CLogs.psd1
     Prerelease:
-    - "*/*": alpha$(WHISKEY_BUILD_NUMBER)
-    - develop: rc$(WHISKEY_BUILD_NUMBER)
+    - main: ""
+    - "*": rc1
 
 # Update the AppVeyor build/version number.
 - Exec:
@@ -34,7 +34,7 @@ Build:
     - NOTICE.txt
     - README.md
     - CHANGELOG.md
-    DestinationDirectory: Carbon
+    DestinationDirectory: W3CLogs
 
 - PowerShell:
     ExceptDuring: Clean
@@ -52,8 +52,8 @@ Build:
     Path:
     - CHANGELOG.md
     - README.md
-    - LICENSE
-    - NOTICE
+    - LICENSE.txt
+    - NOTICE.txt
     DestinationDirectory: W3CLogs
 
 - Zip:
@@ -92,4 +92,4 @@ Build:
         TestResult:
             Enabled: true
             OutputPath: .output\pester.xml
-            TestSuiteName: Template-PSModule-OSS-Apache2.0
+            TestSuiteName: W3CLogs

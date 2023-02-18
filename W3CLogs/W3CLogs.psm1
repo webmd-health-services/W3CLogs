@@ -18,7 +18,43 @@ Set-StrictMode -Version 'Latest'
 # Functions should use $moduleRoot as the relative root from which to find
 # things. A published module has its function appended to this file, while a 
 # module in development has its functions in the Functions directory.
-$moduleRoot = $PSScriptRoot
+$script:moduleRoot = $PSScriptRoot
+
+$script:fieldPropertyMap = @{
+    'date' = 'Date';
+    'time' = 'Time';
+    's-ip' = 'ServerIP';
+    'cs-method' = 'Method';
+    'cs-uri-stem' = 'Stem';
+    'cs-uri-query' = 'Query';
+    's-port' = 'Port';
+    'cs-username' = 'UserName';
+    'c-ip' = 'ClientIP';
+    'cs-version' = 'Version';
+    'cs(User-Agent)' = 'UserAgent';
+    'cs(Cookie)' = 'Cookie';
+    'cs(Referer)' = 'Referer';
+    'cs-host' = 'Host';
+    'sc-status' = 'Status';
+    'sc-bytes' = 'BytesSent';
+    'cs-bytes' = 'BytesReceived';
+    'time-taken' = 'TimeTaken';
+    's-sitename' = 'SiteName';
+    's-computername' = 'ComputerName';
+    'sc-substatus' = 'Substatus';
+    'sc-win32-status' = 'Win32Status';
+}
+
+$script:milliseconds = [Collections.Generic.Hashset[String]]::New()
+[void]$script:milliseconds.Add('time-taken')
+
+$script:httpMethods = [Collections.Generic.Hashset[String]]::New()
+[void]$script:httpMethods.Add('sc-method')
+
+$srcPath = Join-Path -Path $script:moduleRoot -ChildPath 'src' -Resolve
+
+Add-Type -Path (Get-ChildItem -Path $srcPath -Filter '*.cs').FullName `
+         -ReferencedAssemblies 'System.Net.Http','System.Net','System.Net.Primitives'
 
 # Store each of your module's functions in its own file in the Functions 
 # directory. On the build server, your module's functions will be appended to 
