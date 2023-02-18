@@ -21,7 +21,7 @@ namespace W3CLogs
         public string Query { get; set; }
         public HttpStatusCode Status { get; set; }
         public int Substatus { get; set; }
-        public int Win32SStatus { get; set; }
+        public uint Win32Status { get; set; }
         public ulong BytesSent { get; set; }
         public ulong BytesReceived { get; set; }
         public TimeSpan TimeTaken { get; set; }
@@ -50,7 +50,7 @@ namespace W3CLogs
                    this.Query == entry.Query &&
                    this.Status == entry.Status &&
                    this.Substatus == entry.Substatus &&
-                   this.Win32SStatus == entry.Win32SStatus &&
+                   this.Win32Status == entry.Win32Status &&
                    this.BytesSent == entry.BytesSent &&
                    this.BytesReceived == entry.BytesReceived &&
                    this.TimeTaken == entry.TimeTaken &&

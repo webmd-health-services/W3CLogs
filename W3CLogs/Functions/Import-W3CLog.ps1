@@ -37,11 +37,21 @@ function Import-W3CLog
             return
         }
 
-        Write-Verbose "$($Path | Resolve-Path -Relative)"
+        $displayPath = $Path | Resolve-Path -Relative
+        if ($displayPath.StartsWith('..'))
+        {
+            $displayPath = $Path
+        }
+
+        Write-Verbose $displayPath
+
         $fields = @()
 
+        $lineNum = 0
         foreach ($line in (Get-Content -Path $Path))
         {
+            $lineNum += 1
+
             if (-not $line)
             {
                 continue
@@ -59,6 +69,8 @@ function Import-W3CLog
                 }
                 continue
             }
+
+            $errMsgPrefix = "$($displayPath) line $($lineNum): "
 
             $entry = [W3CLogs.LogEntry]::New()
 
@@ -90,7 +102,15 @@ function Import-W3CLog
                     $value = [TimeSpan]::New(0, 0, 0, 0, $value)
                 }
 
-                $entry.$propertyName = $value
+                try
+                {
+                    $entry.$propertyName = $value
+                }
+                catch
+                {
+                    $msg = "$($errMsgPrefix)Failed to convert $($fieldName) value ""$($value)"": $($_)"
+                    Write-Error $msg -ErrorAction $ErrorActionPreference
+                }
             }
 
             $entry.DateTime = $entry.Date + $entry.Time
@@ -100,7 +120,7 @@ function Import-W3CLog
             {
                 $hostname = $entry.Host
             }
-            elseif ($entry.ServerIP)
+            elseif ($entry.ServerIP -and $entry.ServerIP.AddressFamily -eq [Net.Sockets.AddressFamily]::InterNetwork)
             {
                 $hostname = $entry.ServerIP.IPAddressToString
             }
@@ -111,7 +131,22 @@ function Import-W3CLog
                 $queryString = "?$($entry.Query)"
             }
 
-            $entry.Url = [Uri]::New("http://$($hostname)$($entry.Stem)$($queryString)")
+            $stem = $entry.Stem
+            if (-not $stem.StartsWith('/'))
+            {
+                $stem = "/$($stem)"
+            }
+
+            $url = "http://$($hostname)$($stem)$($queryString)"
+            try
+            {
+                $entry.Url = [Uri]::New($url)
+            }
+            catch
+            {
+                $msg = "$($errMsgPrefix)Failed to convert ""$($url)"" to a [Uri] object: $($_)"
+                Write-Error $msg -ErrorAction $ErrorActionPreference
+            }
 
             $entry | Write-Output
         }
