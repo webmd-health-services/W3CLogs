@@ -51,9 +51,7 @@ $script:milliseconds = [Collections.Generic.Hashset[String]]::New()
 $script:httpMethods = [Collections.Generic.Hashset[String]]::New()
 [void]$script:httpMethods.Add('sc-method')
 
-Add-Type -AssemblyName 'System.Net.Http'
-
-Add-Type -TypeDefinition @'
+Add-Type -ReferencedAssemblies 'System.Net.Http' -TypeDefinition @'
 using System;
 using System.Net;
 using System.Net.Http;
